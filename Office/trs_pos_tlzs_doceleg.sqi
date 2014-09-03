@@ -1,0 +1,33 @@
+/*  ADDTOF1081=TLZS=DOCELEG  */
+/* ADD EXTRA PARAMETER */
+@DBHOT(SAL_TTL); 
+@FMT(CMP,'@DBSELECT(SELECT F65 FROM SAL_TTL  WHERE F1032='@DBHOT(SAL_HDR,F1032,#)' AND F1034 IN ('32001','32002','32003','32004','32005','32006','32007','32008','32009'))=',,'®FMT(CHR,27)');
+@WIZCLR(VF1034);
+@WIZRPL(VF1034=@DBSELECT(SELECT DOCSUBCLASIF=CASE F1081
+	   WHEN 'SKU=LaElegante.TransactionType;01-10' THEN 32001
+	   WHEN 'SKU=LaElegante.TransactionType;01-40' THEN 32001      
+	   WHEN 'SKU=LaElegante.TransactionType;01-70' THEN 32001        
+	   WHEN 'SKU=LaElegante.TransactionType;02-10' THEN 32002                   
+	   WHEN 'SKU=LaElegante.TransactionType;02-40' THEN 32002          
+	   WHEN 'SKU=LaElegante.TransactionType;02-60' THEN 32002          
+	   WHEN 'SKU=LaElegante.TransactionType;01-20' THEN 32003                  
+	   WHEN 'SKU=LaElegante.TransactionType;01-50' THEN 32003     
+	   WHEN 'SKU=LaElegante.TransactionType;01-60' THEN 32003     
+	   WHEN 'SKU=LaElegante.TransactionType;02-20' THEN 32004                    
+	   WHEN 'SKU=LaElegante.TransactionType;02-50' THEN 32004     
+	   WHEN 'SKU=LaElegante.TransactionType;02-70' THEN 32004
+	   WHEN 'SKU=LaElegante.TransactionType;01-30' THEN 32005           
+	   WHEN 'SKU=LaElegante.TransactionType;02-30' THEN 32006           
+	   WHEN 'SKU=LaElegante.TransactionType;11-10' THEN 32008
+	   WHEN 'SKU=LaElegante.TransactionType;12-10' THEN 32009
+       WHEN 'SKU=LaElegante.TransactionType;69-00' THEN 32007
+       WHEN 'SKU=LaElegante.TransactionType;70-00' THEN 32007
+	   WHEN 'SKU=LaElegante.TransactionType;73-00' THEN 32007
+	   WHEN 'SKU=LaElegante.TransactionType;74-00' THEN 32007
+       ELSE 32007
+      END
+	FROM SAL_DET WHERE F1032=@DBHOT(SAL_HDR,F1032,#) AND F2770=20030));
+@WIZRPL(TLZS_DOCELEG1[F1034]=@WIZGET(VF1034));
+@WIZRPL(TLZS_DOCELEG1[F64]=1); 
+@WIZRPL(TLZS_DOCELEG1[F65]=@DBHOT(SAL_TTL_FIND,2,F65,#));
+
